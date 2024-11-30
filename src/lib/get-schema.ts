@@ -10,8 +10,9 @@ export const getSchema = (type?: FormType) => {
     switch (field.type) {
       case "number":
         return acc.extend({ [field.id]: field.required ? z.number() : z.optional(z.number()) });
+      case "text":
       case "string":
-        return acc.extend({ [field.id]: field.required ? z.string() : z.optional(z.string()) });
+        return acc.extend({ [field.id]: field.required ? z.string().min(1) : z.optional(z.string()) });
       case "email":
         return acc.extend({ [field.id]: field.required ? z.string().email() : z.optional(z.string().email()) });
       case "password":

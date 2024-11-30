@@ -17,6 +17,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+#root {
+  width: 100%;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -31,6 +35,7 @@ body {
   display: flex;
   min-width: 320px;
   min-height: 100vh;
+  /* width: 100%; */
 }
 
 h1 {

@@ -50,7 +50,7 @@ export default function DynamicFormControl({ inputField, field }: Props) {
 
   return (
     <FormControl>
-      <Input {...field} />
+      <Input type={inputField.type} {...field} />
     </FormControl>
   );
 }

@@ -21,6 +21,8 @@ export const getSchema = (type?: FormType) => {
         return acc.extend({ [field.id]: field.required ? z.date() : z.optional(z.date()) });
       case "boolean":
         return acc.extend({ [field.id]: field.required ? z.boolean() : z.optional(z.boolean()) });
+      case "checkbox":
+        return acc.extend({ [field.id]: field.required ? z.boolean() : z.optional(z.boolean()) });
       default:
         return acc;
     }

@@ -7,18 +7,27 @@ import { CalendarIcon } from "lucide-react";
 import { Calendar } from "./ui/calendar";
 import { ControllerRenderProps } from "react-hook-form";
 import { format } from "date-fns";
+import { Checkbox } from "./ui/checkbox";
 
 interface Props {
   inputType: string;
-  field: ControllerRenderProps<object, never>
+  field: ControllerRenderProps<object, never>;
 }
 
 export default function DynamicFormControl({ inputType, field }: Props) {
-  if (inputType === "date") return (
-    <FormControl>
-      <DateInput inputType={inputType} field={field} />
-    </FormControl>
-  );
+  if (inputType === "checkbox")
+    return (
+      <FormControl>
+        <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+      </FormControl>
+    );
+
+  if (inputType === "date")
+    return (
+      <FormControl>
+        <DateInput inputType={inputType} field={field} />
+      </FormControl>
+    );
 
   return (
     <FormControl>
@@ -27,9 +36,7 @@ export default function DynamicFormControl({ inputType, field }: Props) {
   );
 }
 
-export function DateInput({
-  field,
-}: Props) {
+export function DateInput({ field }: Props) {
   return (
     <Popover>
       <PopoverTrigger asChild>

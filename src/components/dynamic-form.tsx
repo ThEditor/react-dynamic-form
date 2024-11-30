@@ -10,10 +10,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { useGetFormType } from "@/hooks";
 import { getSchema } from "@/lib/get-schema";
 import { LoaderCircle } from "lucide-react";
+import DynamicFormControl from "./dynamic-form-control";
 
 const DynamicForm = ({ type }: {
   type: string
@@ -52,10 +52,10 @@ const DynamicForm = ({ type }: {
             control={form.control}
             name={f.id as never}
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="flex flex-col">
                 <FormLabel>{f.label} <span className="text-red-500">{f.required && "*"}</span></FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <DynamicFormControl inputType={f.type} field={field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

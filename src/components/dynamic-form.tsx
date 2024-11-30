@@ -14,10 +14,12 @@ import { useGetFormType } from "@/hooks";
 import { getSchema } from "@/lib/get-schema";
 import { LoaderCircle } from "lucide-react";
 import DynamicFormControl from "./dynamic-form-control";
+import { useToast } from "@/hooks/use-toast";
 
 const DynamicForm = ({ type }: {
   type: string
 }) => {
+  const { toast } = useToast();
   const { data: formType, isLoading, isError } = useGetFormType({
     type,
   });
@@ -40,7 +42,14 @@ const DynamicForm = ({ type }: {
   }
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    toast({
+      title: "You submitted the following values:",
+      description: (
+        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+          <code className="text-white">{JSON.stringify(values, null, 2)}</code>
+        </pre>
+      ),
+    });
   }
 
   return (

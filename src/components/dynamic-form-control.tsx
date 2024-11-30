@@ -8,6 +8,7 @@ import { Calendar } from "./ui/calendar";
 import { ControllerRenderProps } from "react-hook-form";
 import { format } from "date-fns";
 import { Checkbox } from "./ui/checkbox";
+import { Textarea } from "./ui/textarea";
 
 interface Props {
   inputType: string;
@@ -15,6 +16,15 @@ interface Props {
 }
 
 export default function DynamicFormControl({ inputType, field }: Props) {
+  if (inputType === "textarea")
+    return (
+      <FormControl>
+        <Textarea
+          {...field}
+        />
+      </FormControl>
+    );
+
   if (inputType === "checkbox")
     return (
       <FormControl>

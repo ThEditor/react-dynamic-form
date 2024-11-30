@@ -9,33 +9,42 @@ import { ControllerRenderProps } from "react-hook-form";
 import { format } from "date-fns";
 import { Checkbox } from "./ui/checkbox";
 import { Textarea } from "./ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
+import { Field } from "@/types";
 
 interface Props {
-  inputType: string;
+  inputField: Field;
   field: ControllerRenderProps<object, never>;
 }
 
-export default function DynamicFormControl({ inputType, field }: Props) {
-  if (inputType === "textarea")
+export default function DynamicFormControl({ inputField, field }: Props) {
+  if (inputField.type === "select")
+    return <SelectInput inputField={inputField} field={field} />;
+
+  if (inputField.type === "textarea")
     return (
       <FormControl>
-        <Textarea
-          {...field}
-        />
+        <Textarea {...field} />
       </FormControl>
     );
 
-  if (inputType === "checkbox")
+  if (inputField.type === "checkbox")
     return (
       <FormControl>
         <Checkbox checked={field.value} onCheckedChange={field.onChange} />
       </FormControl>
     );
 
-  if (inputType === "date")
+  if (inputField.type === "date")
     return (
       <FormControl>
-        <DateInput inputType={inputType} field={field} />
+        <DateInput inputField={inputField} field={field} />
       </FormControl>
     );
 
@@ -79,5 +88,24 @@ export function DateInput({ field }: Props) {
         />
       </PopoverContent>
     </Popover>
+  );
+}
+
+export function SelectInput({ inputField, field }: Props) {
+  return (
+    <Select onValueChange={field.onChange} defaultValue={field.value}>
+      <FormControl>
+        <SelectTrigger>
+          <SelectValue placeholder="Select" />
+        </SelectTrigger>
+      </FormControl>
+      <SelectContent>
+        {inputField.options?.map((option) => (
+          <SelectItem key={option.value} value={option.value}>
+            {option.label}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
   );
 }

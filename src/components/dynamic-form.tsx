@@ -64,7 +64,7 @@ const DynamicForm = ({ type }: {
               <FormItem className="flex flex-col">
                 <FormLabel>{f.label} <span className="text-red-500">{f.required && "*"}</span></FormLabel>
                 <FormControl>
-                  <DynamicFormControl inputType={f.type} field={field} />
+                  <DynamicFormControl inputField={f} field={field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
